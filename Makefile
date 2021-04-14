@@ -8,9 +8,11 @@
 SRC	=	src/main.c									\
 		src/constante.c								\
 		src/init_struct.c							\
+		src/ftrace_source_const.c					\
 		src/display/display_help.c					\
 		src/process_manage/call_function.c			\
 		src/process_manage/process_manage.c			\
+		src/process_manage/func/call_syscall.c		\
 
 OBJ	=	$(SRC:.c=.o)
 
