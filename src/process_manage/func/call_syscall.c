@@ -26,11 +26,24 @@ static void display_basic(unsigned long long int val)
     fprintf(stderr, "0x%llx", val);
 }
 
-static bool display_end_syscall(ftrace_t *data)
+static bool display_end_syscall(ftrace_t *data, bool have_return)
 {
-    (void) data;
+    int ret = 0;
+    struct user_regs_struct regs;
 
-    fprintf(stderr, ") = ?\n");
+    if (ptrace(PTRACE_SINGLESTEP, data->pid, NULL, NULL) == -1)
+        return false;
+    wait4(data->pid, &ret, 0, NULL);
+    if (WIFEXITED(ret) || WIFSIGNALED(ret)) {
+        data->running = false;
+        return true;
+    }
+    if (ptrace(PTRACE_GETREGS, data->pid, 0, &regs) == -1)
+        return false;
+    if (have_return)
+        fprintf(stderr, ") = 0x%llx\n", regs.rax);
+    else
+        fprintf(stderr, ") = ?\n");
     return true;
 }
 
@@ -52,7 +65,7 @@ bool call_syscall(ftrace_t *data, struct user_regs_struct *regs)
         if (i + 1 < who.argc)
             fprintf(stderr, ", ");
     }
-    if (!display_end_syscall(data))
+    if (!display_end_syscall(data, !who.noreturn))
         return false;
     fflush(stderr);
     return true;
