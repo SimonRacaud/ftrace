@@ -11,6 +11,7 @@
 #include "libc.h"
 #include "define.h"
 #include "ftrace_t.h"
+#include "link_func_t.h"
 
 /*
 **
