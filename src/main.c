@@ -13,5 +13,8 @@ int main(int ac, char **av)
 
     if (!init_struct(&data, ac, av))
         return ERROR;
+    if (data.running)
+        if (!process_manage(&data))
+            return ERROR;
     return SUCCESS;
 }

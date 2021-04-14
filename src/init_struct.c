@@ -32,5 +32,11 @@ bool init_struct(ftrace_t *data, int ac, char **av)
         return false;
     data->ac = ac;
     data->av = av;
+    data->running = true;
+    if (ac == 2 && !strcmp(av[1], HELP)) {
+        data->running = false;
+        display_help(av[0] + 2);
+        return true;
+    }
     return forking_process(data);
 }

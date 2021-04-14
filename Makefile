@@ -5,8 +5,10 @@
 ## project makefile
 ##
 
-SRC	=	src/main.c							\
-		src/init_struct.c					\
+SRC	=	src/main.c									\
+		src/init_struct.c							\
+		src/display/display_help.c					\
+		src/process_manage/process_manage.c			\
 
 OBJ	=	$(SRC:.c=.o)
 

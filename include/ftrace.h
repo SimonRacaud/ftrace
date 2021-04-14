@@ -18,6 +18,8 @@
 **
 */
 
+bool process_manage(ftrace_t *data);
+void display_help(const char *binary);
 bool init_struct(ftrace_t *data, int ac, char **av);
 
 #endif
