@@ -9,6 +9,7 @@ SRC	=	src/main.c									\
 		src/init_struct.c							\
 		src/display/display_help.c					\
 		src/process_manage/process_manage.c			\
+		src/process_manage/call_function.c			\
 
 OBJ	=	$(SRC:.c=.o)
 
