@@ -32,6 +32,7 @@ bool call_function(ftrace_t *data, long rip, struct user_regs_struct *regs);
 **
 */
 
+bool ff_func(ftrace_t *data, struct user_regs_struct *regs, long rip);
 bool exit_func(ftrace_t *data, struct user_regs_struct *regs, long rip);
 bool call_syscall(ftrace_t *data, struct user_regs_struct *regs, long rip);
 bool call_enter_func(ftrace_t *data, struct user_regs_struct *regs, long rip);

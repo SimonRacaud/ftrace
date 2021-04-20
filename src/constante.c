@@ -16,7 +16,6 @@ const link_func_t REDIRECTION[] =
     {0xcb, 0, exit_func},
     {0xc2, 0, exit_func},
     {0xca, 0, exit_func},
-    //{0xff, 0, call_enter_func},
-    //{0xff2, 0, NULL},
+    {0xff, 0, ff_func},
     {0, 0, NULL}
 };
