@@ -7,6 +7,14 @@
 
 #include "ftrace.h"
 
+static size_t get_first_addr(const char *name, const data_link_t *tab)
+{
+    for (size_t u = 0; tab[u].name; u++)
+        if (!strcmp(tab[u].name, name))
+            return tab[u].start;
+    return 0;
+}
+
 static char *find_name(unsigned long long addr, GElf_Shdr *shdr, Elf_Scn *scn, Elf *elf)
 {
     size_t size = (shdr->sh_entsize) ? shdr->sh_size / shdr->sh_entsize : 0;
@@ -22,12 +30,13 @@ static char *find_name(unsigned long long addr, GElf_Shdr *shdr, Elf_Scn *scn, E
             break;
         }
     }
+    if (name != NULL)
+        name = strdup(name);
     return name;
 }
 
 static char *parse_elf(const char *path, unsigned long long addr)
 {
-    //printf("%s\n", path);
     GElf_Shdr shdr = {0};
     Elf_Scn *scn = NULL;
     char *name = NULL;
@@ -60,9 +69,7 @@ static char *get_func_name(int pid, unsigned long long regs_rip)
         return NULL;
     for (size_t u = 0; tab[u].name; u++) {
         if (regs_rip >= (unsigned long long) tab[u].start && regs_rip <= (unsigned long long) tab[u].end) {
-            //fprintf(stdout, "Hey I'm in! %s\n", tab[0].name);
-            //addr = regs_rip - tab[u].start;
-            addr = regs_rip - tab[0].start;
+            addr = regs_rip - get_first_addr(tab[u].name, tab);
             sym_name = (tab[u].name[0]) ? parse_elf(tab[u].name, addr) : NULL;
             if (!sym_name)
                 sym_name = parse_elf(tab[u].name, regs_rip);
@@ -88,6 +95,7 @@ bool call_enter_func(ftrace_t *data, struct user_regs_struct *regs, long rip)
     if (name)
         fprintf(stderr, "Entering function %s at 0x%llx\n", name, regs->rip);
     /*else
-        fprintf(stderr, "Entering function %s at 0x%llx\n", "Unknown", regs->rip);*/
+        fprintf(stderr, "Entering function %s at 0x%llx\n", "Unknown", regs->rip); */
+    free(name);
     return true;
 }
