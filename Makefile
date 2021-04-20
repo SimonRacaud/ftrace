@@ -8,12 +8,14 @@
 SRC	=	src/main.c									\
 		src/constante.c								\
 		src/ftrace_source_const.c					\
-		src/tools/str_to_array.c					\
 		src/elf/maps_proc.c							\
+		src/tools/tab_manage.c						\
+		src/tools/str_to_array.c					\
 		src/display/display_help.c					\
 		src/init_struct/init_struct.c				\
 		src/process_manage/call_function.c			\
 		src/process_manage/process_manage.c			\
+		src/process_manage/func/exit_func.c			\
 		src/process_manage/func/call_syscall.c		\
 		src/process_manage/func/call_enter_func.c	\
 

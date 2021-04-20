@@ -16,6 +16,7 @@ typedef struct ftrace_s
     int pid;
     char **av;
     bool running;
+    char **leaving_list;
 } ftrace_t;
 
 #endif
