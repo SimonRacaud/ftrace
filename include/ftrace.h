@@ -20,8 +20,10 @@
 **
 */
 
+void destroy_binary(binary_t *bin);
 bool process_manage(ftrace_t *data);
 void display_help(const char *binary);
+bool init_binary(binary_t *bin, int pid);
 bool init_struct(ftrace_t *data, int ac, char **av);
 bool call_function(ftrace_t *data, long rip, struct user_regs_struct *regs);
 
@@ -31,6 +33,7 @@ bool call_function(ftrace_t *data, long rip, struct user_regs_struct *regs);
 **
 */
 
-bool call_syscall(ftrace_t *data, struct user_regs_struct *regs);
+bool call_syscall(ftrace_t *data, struct user_regs_struct *regs, long rip);
+bool call_enter_func(ftrace_t *data, struct user_regs_struct *regs, long rip);
 
 #endif

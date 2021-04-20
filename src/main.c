@@ -16,5 +16,6 @@ int main(int ac, char **av)
     if (data.running)
         if (!process_manage(&data))
             return ERROR;
+    destroy_binary(&data.bin);
     return SUCCESS;
 }

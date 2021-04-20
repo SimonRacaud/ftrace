@@ -8,6 +8,8 @@
 #ifndef LIBC_H
 #define LIBC_H
 
+#define _GNU_SOURCE
+
 #include <fcntl.h>
 #include <errno.h>
 #include <stdio.h>

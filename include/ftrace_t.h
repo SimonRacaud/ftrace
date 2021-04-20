@@ -9,6 +9,7 @@
 #define FTRACE_T_H
 
 #include <stdbool.h>
+#include "binary_t.h"
 
 typedef struct ftrace_s
 {
@@ -16,6 +17,7 @@ typedef struct ftrace_s
     int pid;
     char **av;
     bool running;
+    binary_t bin;
 } ftrace_t;
 
 #endif

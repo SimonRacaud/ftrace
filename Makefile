@@ -7,25 +7,27 @@
 
 SRC	=	src/main.c									\
 		src/constante.c								\
-		src/init_struct.c							\
 		src/ftrace_source_const.c					\
 		src/display/display_help.c					\
+		src/init_struct/init_struct.c				\
+		src/init_struct/init_binary.c				\
 		src/process_manage/call_function.c			\
 		src/process_manage/process_manage.c			\
 		src/process_manage/func/call_syscall.c		\
+		src/process_manage/func/call_enter_func.c	\
 
 OBJ	=	$(SRC:.c=.o)
 
 NAME	=	ftrace
 
 INCLUDES	=	-I include
-CFLAGS		=	$(INCLUDES) -Wall -Wextra -lm
+CFLAGS		=	$(INCLUDES) -Wall -Wextra
 
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
 		@$(ECHO)
-		@gcc -o $(NAME) $(OBJ) \
+		@gcc -o $(NAME) $(OBJ) -lelf\
 		&& $(ECHO) $(BOLD) $(GREEN)"► BUILD SUCCESS !"$(DEFAULT) || $(ECHO) $(BOLD) $(RED)"► BUILD FAILED"$(DEFAULT)
 
 clean:
@@ -44,6 +46,9 @@ re:	fclean all
 
 %.o :		%.c
 		@gcc -c -o $@ $^ $(CFLAGS) && $(ECHO) -n $(BOLD) $(GREEN)"  [OK] "$(WHITE) || $(ECHO) -n $(BOLD) $(RED)"  [KO] "$(WHITE) && $(ECHO) $(BOLD) $< | rev | cut -d'/' -f 1 | rev
+
+tests_local:
+		gcc -Wall -Wextra -o0 -pipe -o test tests/test.c
 
 .PHONY: all clean fclean re debug
 

@@ -17,8 +17,10 @@ static bool call_pocessing(ftrace_t *data)
     rip = ptrace(PTRACE_PEEKDATA, data->pid, regs.rip, NULL);
     if (rip == -1)
         return false;
-    if (!call_function(data, rip, &regs))
-        return false;
+    if ((rip & 0xFF) == 0xe8)
+        call_enter_func(data, &regs, rip);
+    /*if (!call_function(data, rip, &regs))
+        return false;*/
     return true;
 }
 
@@ -28,6 +30,8 @@ bool process_manage(ftrace_t *data)
     struct rusage usage;
 
     wait4(data->pid, &ret, 0, &usage);
+    if (ptrace(PTRACE_SETOPTIONS, data->pid, 0, PTRACE_O_TRACEEXIT) == -1)
+        return false;
     while (data->running) {
         if (ptrace(PTRACE_SINGLESTEP, data->pid, NULL, NULL) == -1)
             return false;

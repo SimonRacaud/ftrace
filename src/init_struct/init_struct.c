@@ -38,5 +38,8 @@ bool init_struct(ftrace_t *data, int ac, char **av)
         display_help(av[0] + 2);
         return true;
     }
-    return forking_process(data);
+    if (!forking_process(data))
+        return false;
+    printf("%i == %i\n", data->pid, getpid());
+    return init_binary(&data->bin, data->pid);
 }

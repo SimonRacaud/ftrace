@@ -47,18 +47,14 @@ static bool display_end_syscall(ftrace_t *data, bool have_return)
     return true;
 }
 
-bool call_syscall(ftrace_t *data, struct user_regs_struct *regs)
+bool call_syscall(ftrace_t *data, struct user_regs_struct *regs, long rip)
 {
     const struct s_syscall who = get_syscall_struct(regs->rax);
     const unsigned long long params[STRACE_SYSCALL_ARGS_MAX] = {
-        regs->rdi,
-        regs->rsi,
-        regs->rdx,
-        regs->r10,
-        regs->r8,
-        regs->r9,
+        regs->rdi, regs->rsi, regs->rdx, regs->r10, regs->r8, regs->r9
     };
 
+    (void) rip;
     fprintf(stderr, "Syscall %s(", who.name);
     for (size_t i = 0; i < who.argc; i++) {
         display_basic(params[i]);
