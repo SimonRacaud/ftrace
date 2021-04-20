@@ -8,6 +8,8 @@
 SRC	=	src/main.c									\
 		src/constante.c								\
 		src/ftrace_source_const.c					\
+		src/tools/str_to_array.c					\
+		src/elf/maps_proc.c							\
 		src/display/display_help.c					\
 		src/init_struct/init_struct.c				\
 		src/init_struct/init_binary.c				\

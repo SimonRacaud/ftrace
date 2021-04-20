@@ -18,4 +18,11 @@ typedef struct link_func_s
     bool (*func)(ftrace_t *data, struct user_regs_struct *regs, long rip);
 } link_func_t;
 
+typedef struct data_link_s
+{
+	ssize_t start;
+	ssize_t end;
+	char *name;
+} data_link_t;
+
 #endif

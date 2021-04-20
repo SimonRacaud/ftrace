@@ -20,6 +20,7 @@
 **
 */
 
+data_link_t *parse_maps(int pid);
 void destroy_binary(binary_t *bin);
 bool process_manage(ftrace_t *data);
 void display_help(const char *binary);
@@ -35,5 +36,13 @@ bool call_function(ftrace_t *data, long rip, struct user_regs_struct *regs);
 
 bool call_syscall(ftrace_t *data, struct user_regs_struct *regs, long rip);
 bool call_enter_func(ftrace_t *data, struct user_regs_struct *regs, long rip);
+
+/*
+**
+** TOOLS
+**
+*/
+
+char **my_str_to_array(const char *str);
 
 #endif
