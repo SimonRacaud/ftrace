@@ -77,6 +77,7 @@ static char *get_func_name(int pid, unsigned long long regs_rip)
             break;
         }
     }
+    sym_name = get_correct_name(sym_name, regs_rip, tab);
     for (size_t i = 0; tab[i].name; i++)
         free(tab[i].name);
     free(tab);
@@ -94,11 +95,8 @@ bool call_enter_func(ftrace_t *data, struct user_regs_struct *regs, long rip)
     ptrace(PTRACE_GETREGS, data->pid, 0, regs);
     rip = ptrace(PTRACE_PEEKDATA, data->pid, regs->rip, NULL);
     name = get_func_name(data->pid, regs->rip);
-    if (name)
-        fprintf(stderr, display, name, regs->rip);
-    else
-        fprintf(stderr, display, "Unknown", regs->rip);
     if (!name)
-        asprintf(&name, "func_%llx", regs->rip);
+        return false;
+    fprintf(stderr, display, name, regs->rip);
     return push_back(&data->leaving_list, name);
 }

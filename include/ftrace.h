@@ -25,6 +25,7 @@ bool process_manage(ftrace_t *data);
 void display_help(const char *binary);
 bool init_struct(ftrace_t *data, int ac, char **av);
 bool call_function(ftrace_t *data, long rip, struct user_regs_struct *regs);
+char *get_correct_name(char *name, unsigned long long rip, data_link_t *tab);
 
 /*
 **
