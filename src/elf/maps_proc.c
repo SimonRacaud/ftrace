@@ -15,7 +15,7 @@ static bool load_data(data_link_t *tab, char *line, size_t pos)
 	if (!parse)
 		return false;
 	for (size = 0; parse[size]; size++);
-	sscanf(parse[0], "%lx-%lx", &tab[pos].start, &tab[pos].end);
+	sscanf(parse[0], "%llx-%llx", &tab[pos].start, &tab[pos].end);
 	tab[pos].name = strdup((size == 6) ? parse[5] : "");
 	for (size_t i = 0; parse[i]; i++)
 		free(parse[i]);

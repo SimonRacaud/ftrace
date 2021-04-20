@@ -68,7 +68,7 @@ static char *get_func_name(int pid, unsigned long long regs_rip)
     if (!tab)
         return NULL;
     for (size_t u = 0; tab[u].name; u++) {
-        if (regs_rip >= (unsigned long long) tab[u].start && regs_rip <= (unsigned long long) tab[u].end) {
+        if (regs_rip >= tab[u].start && regs_rip <= tab[u].end) {
             addr = regs_rip - get_first_addr(tab[u].name, tab);
             sym_name = (tab[u].name[0]) ? parse_elf(tab[u].name, addr) : NULL;
             if (!sym_name)
@@ -84,6 +84,7 @@ static char *get_func_name(int pid, unsigned long long regs_rip)
 
 bool call_enter_func(ftrace_t *data, struct user_regs_struct *regs, long rip)
 {
+    char display[] = "Entering function %s at 0x%llx\n";
     char *name = NULL;
     int ret = 0;
 
@@ -93,9 +94,9 @@ bool call_enter_func(ftrace_t *data, struct user_regs_struct *regs, long rip)
     rip = ptrace(PTRACE_PEEKDATA, data->pid, regs->rip, NULL);
     name = get_func_name(data->pid, regs->rip);
     if (name)
-        fprintf(stderr, "Entering function %s at 0x%llx\n", name, regs->rip);
-    /*else
-        fprintf(stderr, "Entering function %s at 0x%llx\n", "Unknown", regs->rip); */
+        fprintf(stderr, display, name, regs->rip);
+    else
+        fprintf(stderr, display, "Unknown", regs->rip);
     free(name);
     return true;
 }
