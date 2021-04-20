@@ -34,31 +34,12 @@ static ssize_t get_offset_bin(int pid)
         return -1;
     file = fopen(path, "r");
     free(path);
-    //for (size_t i = 0; str || i == 0; i++) {
     if (getline(&str, &size, file) == -1)
         return -1;
-    if (str) {
+    if (str)
         ret = get_addr(str);
-        //break;
-    }
-    //}
     fclose(file);
     return ret;
-}
-
-static long get_offset(long rip, int pid)
-{
-    //long ret_val = ptrace(PTRACE_PEEKDATA, pid, rip + 1, NULL);
-    /*long ret_val = ptrace(PTRACE_PEEKDATA, pid, rip + 1);
-
-    return (ret_val & 0xffffffff);*/
-    long ret_val = ptrace(PTRACE_PEEKTEXT, pid, rip + 1);
-    int offset = 0;
-
-    if (ret_val == -1)
-        return -1;
-    offset = ret_val & 0xFFFFFFFF;
-    return offset;
 }
 
 static char *get_func_name(ftrace_t *data, long unsigned int addr)
@@ -80,38 +61,21 @@ static char *get_func_name(ftrace_t *data, long unsigned int addr)
 
 bool call_enter_func(ftrace_t *data, struct user_regs_struct *regs, long rip)
 {
-    int ret;
-    struct rusage usage;
+    ssize_t addr = 0;
+    char *name = NULL;
+    int ret = 0;
 
     ptrace(PTRACE_SINGLESTEP, data->pid, NULL, NULL);
-    wait4(data->pid, &ret, 0, &usage);
+    wait4(data->pid, &ret, 0, NULL);
     ptrace(PTRACE_GETREGS, data->pid, 0, regs);
     rip = ptrace(PTRACE_PEEKDATA, data->pid, regs->rip, NULL);
-
-    unsigned long addr = regs->rip - get_offset_bin(data->pid);
-
-    char *name = get_func_name(data, addr);
+    addr = regs->rip - get_offset_bin(data->pid);
+    if (addr == -1)
+        return false;
+    name = get_func_name(data, addr);
     if (name)
-        fprintf(stderr, "Entering function %s at 0x%lx\n", name, regs->rip);
+        fprintf(stderr, "Entering function %s at 0x%llx\n", name, regs->rip);
     else
-        fprintf(stderr, "Entering function %s at 0x%lx\n", "Unknown", regs->rip);
+        fprintf(stderr, "Entering function %s at 0x%llx\n", "Unknown", regs->rip);
     return true;
-    /*
-    //int second = ((unsigned) 0xFF00 & rip) >> 8;
-    long offset_bin = get_offset_bin(data->pid);
-    long offset = get_offset(regs->rip, data->pid);
-    //long unsigned int addr = (regs->rip < off) ? regs->rip : regs->rip - off;
-    //unsigned long addr = regs->rip + offset + 5;
-    //unsigned long long int addr = regs->rip + offset - offset_bin + 5;
-    unsigned long addr = regs->rip + offset + 5;
-
-    char *name = get_func_name(data, addr);
-    //name = get_func_name(data, 0x1160);
-
-    //fprintf(stderr, "offset_bin=%#lx\taddr_to_find=%#lx\tcalculated addr=%#lx\t", offset_bin, offset, addr);
-    if (name)
-        fprintf(stderr, "Entering function %s at 0x%lx\n", name, addr);
-    else
-        fprintf(stderr, "Entering function %s at 0x%lx\n", "Unknown", addr);
-    return true;*/
 }
