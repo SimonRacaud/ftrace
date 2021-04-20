@@ -7,61 +7,76 @@
 
 #include "ftrace.h"
 
-static ssize_t get_addr(char *str)
+static char *find_name(unsigned long long addr, GElf_Shdr *shdr, Elf_Scn *scn, Elf *elf)
 {
-    ssize_t tmp = -1;
-    size_t pos = 0;
-
-    for (pos = 0; str[pos] && str[pos] != '-'; pos++);
-    if (str[pos] == '-')
-        str[pos] = '\0';
-    else
-        return -1;
-    sscanf(str, "%lx", &tmp);
-    return tmp;
-}
-
-static ssize_t get_offset_bin(int pid)
-{
-    ssize_t ret = -1;
-    char *path = NULL;
-    FILE *file = NULL;
-    size_t size = 0;
-    char *str = NULL;
-
-    asprintf(&path, "/proc/%i/maps", pid);
-    if (!path)
-        return -1;
-    file = fopen(path, "r");
-    free(path);
-    if (getline(&str, &size, file) == -1)
-        return -1;
-    if (str)
-        ret = get_addr(str);
-    fclose(file);
-    return ret;
-}
-
-static char *get_func_name(ftrace_t *data, long unsigned int addr)
-{
-    Elf_Data *info = elf_getdata(data->bin.scn, NULL);
-    GElf_Shdr shdr = {0};
+    size_t size = (shdr->sh_entsize) ? shdr->sh_size / shdr->sh_entsize : 0;
+    Elf_Data *data = NULL;
     GElf_Sym sym = {0};
-    size_t size = 0;
+    char *name = NULL;
 
-    gelf_getshdr(data->bin.scn, &shdr);
-    size = shdr.sh_size / shdr.sh_entsize;
-    for (size_t i = 0; i < size; i++) {
-        gelf_getsym(info, i, &sym);
-        if (addr == sym.st_value)
-            return elf_strptr(data->bin.elf, shdr.sh_link, sym.st_name);
+    data = elf_getdata(scn, NULL);
+    for (size_t move = 0; move < size; ++move) {
+        gelf_getsym(data, move, &sym);
+        if (addr == sym.st_value) {
+            name = elf_strptr(elf, shdr->sh_link, sym.st_name);
+            break;
+        }
     }
-    return NULL;
+    return name;
+}
+
+static char *parse_elf(const char *path, unsigned long long addr)
+{
+    //printf("%s\n", path);
+    GElf_Shdr shdr = {0};
+    Elf_Scn *scn = NULL;
+    char *name = NULL;
+    Elf *elf = NULL;
+    int fd = open(path, O_RDONLY);
+
+    elf_version(EV_CURRENT);
+    if (fd == -1)
+        return NULL;
+    elf = elf_begin(fd, ELF_C_READ, NULL);
+    while ((scn = elf_nextscn(elf, scn)) != NULL) {
+        gelf_getshdr(scn, &shdr);
+        if (shdr.sh_type == SHT_SYMTAB) {
+            break;
+        }
+    }
+    name = find_name(addr, &shdr, scn, elf);
+    elf_end(elf);
+    close(fd);
+    return name;
+}
+
+static char *get_func_name(int pid, unsigned long long regs_rip)
+{
+    data_link_t *tab = parse_maps(pid);
+    unsigned long long addr = 0;
+    char *sym_name = NULL;
+
+    if (!tab)
+        return NULL;
+    for (size_t u = 0; tab[u].name; u++) {
+        if (regs_rip >= (unsigned long long) tab[u].start && regs_rip <= (unsigned long long) tab[u].end) {
+            //fprintf(stdout, "Hey I'm in! %s\n", tab[0].name);
+            //addr = regs_rip - tab[u].start;
+            addr = regs_rip - tab[0].start;
+            sym_name = (tab[u].name[0]) ? parse_elf(tab[u].name, addr) : NULL;
+            if (!sym_name)
+                sym_name = parse_elf(tab[u].name, regs_rip);
+            break;
+        }
+    }
+    for (size_t i = 0; tab[i].name; i++)
+        free(tab[i].name);
+    free(tab);
+    return sym_name;
 }
 
 bool call_enter_func(ftrace_t *data, struct user_regs_struct *regs, long rip)
 {
-    ssize_t addr = 0;
     char *name = NULL;
     int ret = 0;
 
@@ -69,13 +84,10 @@ bool call_enter_func(ftrace_t *data, struct user_regs_struct *regs, long rip)
     wait4(data->pid, &ret, 0, NULL);
     ptrace(PTRACE_GETREGS, data->pid, 0, regs);
     rip = ptrace(PTRACE_PEEKDATA, data->pid, regs->rip, NULL);
-    addr = regs->rip - get_offset_bin(data->pid);
-    if (addr == -1)
-        return false;
-    name = get_func_name(data, addr);
+    name = get_func_name(data->pid, regs->rip);
     if (name)
         fprintf(stderr, "Entering function %s at 0x%llx\n", name, regs->rip);
-    else
-        fprintf(stderr, "Entering function %s at 0x%llx\n", "Unknown", regs->rip);
+    /*else
+        fprintf(stderr, "Entering function %s at 0x%llx\n", "Unknown", regs->rip);*/
     return true;
 }

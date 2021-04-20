@@ -20,6 +20,7 @@ static bool load_data(data_link_t *tab, char *line, size_t pos)
 	for (size_t i = 0; parse[i]; i++)
 		free(parse[i]);
 	free(parse);
+	tab[pos + 1].name = NULL;
 	return (!tab[pos].name) ? false : true;
 }
 

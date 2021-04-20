@@ -7,7 +7,7 @@
 
 #include "ftrace.h"
 
-static char *get_path_from_pid(int pid)
+/*static char *get_path_from_pid(int pid)
 {
     char *path = NULL;
 
@@ -31,11 +31,14 @@ static void set_symtab(binary_t *bin)
         }
     }
     bin->have_symtab = false;
-}
+}*/
 
 bool init_binary(binary_t *bin, int pid)
 {
-    char *path = get_path_from_pid(pid);
+    (void) bin;
+    (void) pid;
+    return true;
+    /*char *path = get_path_from_pid(pid);
 
     if (!path)
         return false;
@@ -51,11 +54,12 @@ bool init_binary(binary_t *bin, int pid)
     if (!bin->elf)
         return false;
     set_symtab(bin);
-    return true;
+    return true;*/
 }
 
 void destroy_binary(binary_t *bin)
 {
-    elf_end(bin->elf);
-    close(bin->fd);
+    (void) bin;
+    /*elf_end(bin->elf);
+    close(bin->fd);*/
 }
