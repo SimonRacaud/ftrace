@@ -41,5 +41,5 @@ bool init_struct(ftrace_t *data, int ac, char **av)
     if (!forking_process(data))
         return false;
     printf("%i == %i\n", data->pid, getpid());
-    return init_binary(&data->bin, data->pid);
+    return true;
 }

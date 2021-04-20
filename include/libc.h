@@ -10,9 +10,11 @@
 
 #define _GNU_SOURCE
 
+#include <gelf.h>
 #include <fcntl.h>
 #include <errno.h>
 #include <stdio.h>
+#include <libelf.h>
 #include <stdlib.h>
 #include <string.h>
 #include <signal.h>

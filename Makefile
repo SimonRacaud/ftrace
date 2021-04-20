@@ -12,7 +12,6 @@ SRC	=	src/main.c									\
 		src/elf/maps_proc.c							\
 		src/display/display_help.c					\
 		src/init_struct/init_struct.c				\
-		src/init_struct/init_binary.c				\
 		src/process_manage/call_function.c			\
 		src/process_manage/process_manage.c			\
 		src/process_manage/func/call_syscall.c		\

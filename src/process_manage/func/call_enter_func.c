@@ -15,7 +15,8 @@ static size_t get_first_addr(const char *name, const data_link_t *tab)
     return 0;
 }
 
-static char *find_name(unsigned long long addr, GElf_Shdr *shdr, Elf_Scn *scn, Elf *elf)
+static char *find_name(unsigned long long addr,
+GElf_Shdr *shdr, Elf_Scn *scn, Elf *elf)
 {
     size_t size = (shdr->sh_entsize) ? shdr->sh_size / shdr->sh_entsize : 0;
     Elf_Data *data = NULL;
