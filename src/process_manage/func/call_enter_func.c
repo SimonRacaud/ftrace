@@ -86,7 +86,6 @@ static char *get_func_name(int pid, unsigned long long regs_rip)
 
 bool call_enter_func(ftrace_t *data, struct user_regs_struct *regs, long rip)
 {
-    char display[] = "Entering function %s at 0x%llx\n";
     char *name = NULL;
     int ret = 0;
 
@@ -97,6 +96,6 @@ bool call_enter_func(ftrace_t *data, struct user_regs_struct *regs, long rip)
     name = get_func_name(data->pid, regs->rip);
     if (!name)
         return false;
-    fprintf(stderr, display, name, regs->rip);
+    fprintf(stderr, DISPLAY, name, regs->rip);
     return push_back(&data->leaving_list, name);
 }
