@@ -20,14 +20,14 @@ typedef struct link_func_s
 
 typedef struct data_link_s
 {
-	unsigned long long start;
-	unsigned long long end;
-	char *name;
+    unsigned long long start;
+    unsigned long long end;
+    char *name;
 } data_link_t;
 
 typedef struct link_s
 {
-	int sig;
+    int sig;
     char *val_sig;
 } link_t;
 
