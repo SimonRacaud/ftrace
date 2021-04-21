@@ -18,6 +18,7 @@ SRC	=	src/main.c									\
 		src/process_manage/process_manage.c			\
 		src/process_manage/func/ff_func.c			\
 		src/process_manage/func/exit_func.c			\
+		src/process_manage/func/signal_func.c		\
 		src/process_manage/func/call_syscall.c		\
 		src/process_manage/func/call_enter_func.c	\
 

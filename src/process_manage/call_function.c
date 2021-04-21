@@ -32,5 +32,5 @@ bool call_function(ftrace_t *data, long rip, struct user_regs_struct *regs)
             }
         }
     }
-    return true;
+    return signal_func(data);
 }

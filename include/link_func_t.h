@@ -25,4 +25,10 @@ typedef struct data_link_s
 	char *name;
 } data_link_t;
 
+typedef struct link_s
+{
+	int sig;
+    char *val_sig;
+} link_t;
+
 #endif
