@@ -84,7 +84,7 @@ static char *get_func_name(int pid, unsigned long long regs_rip)
     return sym_name;
 }
 
-bool call_enter_func(ftrace_t *data, struct user_regs_struct *regs)
+bool ee_func(ftrace_t *data, struct user_regs_struct *regs)
 {
     char *name = NULL;
     int ret = 0;

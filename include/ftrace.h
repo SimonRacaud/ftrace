@@ -35,9 +35,10 @@ char *get_correct_name(char *name, unsigned long long rip, data_link_t *tab);
 
 bool signal_func(ftrace_t *data);
 bool ff_func(ftrace_t *data, struct user_regs_struct *regs);
+bool ee_func(ftrace_t *data, struct user_regs_struct *regs);
+bool na_func(ftrace_t *data, struct user_regs_struct *regs);
 bool exit_func(ftrace_t *data, struct user_regs_struct *regs);
 bool call_syscall(ftrace_t *data, struct user_regs_struct *regs);
-bool call_enter_func(ftrace_t *data, struct user_regs_struct *regs);
 
 /*
 **

@@ -11,12 +11,13 @@ const link_func_t REDIRECTION[] =
 {
     {0xcd, 0x80, call_syscall},
     {0x0f, 0x05, call_syscall},
-    {0xe8, 0, call_enter_func},
     {0xc3, 0, exit_func},
     {0xcb, 0, exit_func},
     {0xc2, 0, exit_func},
     {0xca, 0, exit_func},
+    {0xe8, 0, ee_func},
     {0xff, 0, ff_func},
+    {0x9a, 0, na_func},
     {0, 0, NULL}
 };
 

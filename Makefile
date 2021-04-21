@@ -16,11 +16,12 @@ SRC	=	src/main.c									\
 		src/init_struct/init_struct.c				\
 		src/process_manage/call_function.c			\
 		src/process_manage/process_manage.c			\
+		src/process_manage/func/e8_func.c			\
+		src/process_manage/func/na_func.c			\
 		src/process_manage/func/ff_func.c			\
 		src/process_manage/func/exit_func.c			\
 		src/process_manage/func/signal_func.c		\
 		src/process_manage/func/call_syscall.c		\
-		src/process_manage/func/call_enter_func.c	\
 
 OBJ	=	$(SRC:.c=.o)
 
