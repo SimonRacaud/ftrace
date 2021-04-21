@@ -26,7 +26,7 @@ bool call_function(ftrace_t *data, long rip, struct user_regs_struct *regs)
     for (size_t i = 0; REDIRECTION[i].first || REDIRECTION[i].second; i++) {
         if (match_with(i, first, second)) {
             if ((REDIRECTION[i].func)) {
-                return REDIRECTION[i].func(data, regs, rip);
+                return REDIRECTION[i].func(data, regs);
             } else {
                 return true;
             }

@@ -7,7 +7,8 @@
 
 #include "ftrace.h"
 
-bool exit_func(ftrace_t *data, struct user_regs_struct *regs, long rip)
+bool exit_func(ftrace_t *data,
+__attribute__((unused)) struct user_regs_struct *regs)
 {
     char *name = pop_back(data->leaving_list);
 

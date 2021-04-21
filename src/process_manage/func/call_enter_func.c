@@ -84,7 +84,7 @@ static char *get_func_name(int pid, unsigned long long regs_rip)
     return sym_name;
 }
 
-bool call_enter_func(ftrace_t *data, struct user_regs_struct *regs, long rip)
+bool call_enter_func(ftrace_t *data, struct user_regs_struct *regs)
 {
     char *name = NULL;
     int ret = 0;
@@ -92,7 +92,8 @@ bool call_enter_func(ftrace_t *data, struct user_regs_struct *regs, long rip)
     ptrace(PTRACE_SINGLESTEP, data->pid, NULL, NULL);
     wait4(data->pid, &ret, 0, NULL);
     ptrace(PTRACE_GETREGS, data->pid, 0, regs);
-    rip = ptrace(PTRACE_PEEKDATA, data->pid, regs->rip, NULL);
+    if (ptrace(PTRACE_PEEKDATA, data->pid, regs->rip, NULL) == -1)
+        return false;
     name = get_func_name(data->pid, regs->rip);
     if (!name)
         return false;

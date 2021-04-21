@@ -15,7 +15,7 @@ typedef struct link_func_s
 {
     unsigned char first;
     unsigned char second;
-    bool (*func)(ftrace_t *data, struct user_regs_struct *regs, long rip);
+    bool (*func)(ftrace_t *data, struct user_regs_struct *regs);
 } link_func_t;
 
 typedef struct data_link_s
