@@ -19,6 +19,7 @@
 #include <string.h>
 #include <signal.h>
 #include <unistd.h>
+#include <ctype.h>
 #include <syscall.h>
 #include <stdbool.h>
 #include <sys/stat.h>

@@ -8,7 +8,7 @@
 #ifndef LINK_FUNC_T_H
 #define LINK_FUNC_T_H
 
-#include "libc.h"
+#include "../include/libc.h"
 #include "ftrace_t.h"
 
 typedef struct link_func_s

@@ -7,6 +7,18 @@
 
 SRC	=	src/main.c									\
 		src/usage.c									\
+		src/binary/binary_launcher.c				\
+		src/constant/instruction_handlers.c			\
+		src/constant/signal_names.c					\
+		src/stack/sstack.c							\
+		src/tracer/system/get_registers.c			\
+		src/tracer/system/opcode_match.c			\
+		src/tracer/system/step_forward.c			\
+		src/tracer/process_instruction.c			\
+		src/tracer/trace_binary.c					\
+		src/tracer/trace_signal.c					\
+		src/tracer/tracer_destroy.c					\
+		src/tracer/tracer_init.c					\
 
 OBJ	=	$(SRC:.c=.o)
 

@@ -8,11 +8,11 @@
 #ifndef FTRACE_H
 #define FTRACE_H
 
-#include "libc.h"
+#include "../include/libc.h"
 #include "define.h"
+#include "ftrace_source.h"
 #include "ftrace_t.h"
 #include "link_func_t.h"
-#include "ftrace_source.h"
 
 /*
 **

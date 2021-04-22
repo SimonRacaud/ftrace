@@ -8,7 +8,7 @@
 #ifndef STRACE_SOURCE_H_
 #define STRACE_SOURCE_H_
 
-#include "libc.h"
+#include "../include/libc.h"
 #include "ftrace_t.h"
 
 #define STRACE_SYSCALL_ARGS_MAX 6
