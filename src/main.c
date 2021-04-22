@@ -1,28 +1,21 @@
 /*
 ** EPITECH PROJECT, 2021
-** main.c
+** B-PSU-402-REN-4-1-ftrace-simon.racaud
 ** File description:
-** main
+** 22/04/2021 main.c
 */
 
-#include "ftrace.h"
+#include "app.h"
 
-static void destroy_struct(ftrace_t *data)
+static const int ARGC_NEEDED = 2;
+
+int main(int argc, char **argv)
 {
-    for (size_t i = 0; data->leaving_list && data->leaving_list[i]; i++)
-        free(data->leaving_list[i]);
-    free(data->leaving_list);
-}
+    if (show_usages(argc, argv)) {
+        return usage(EXIT_SUCCESS, argv[0]);
+    } else if (argc != ARGC_NEEDED) {
+        return usage(EXIT_FAILURE, argv[0]);
+    }
 
-int main(int ac, char **av)
-{
-    ftrace_t data = {0};
-
-    if (!init_struct(&data, ac, av))
-        return ERROR;
-    if (data.running)
-        if (!process_manage(&data))
-            return ERROR;
-    destroy_struct(&data);
-    return SUCCESS;
+    return EXIT_SUCCESS;
 }
