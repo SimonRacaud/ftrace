@@ -13,5 +13,4 @@ void tracer_init(tracer_t *tracer, char **argv)
     tracer->child_pid = -1;
     tracer->is_running = true;
     tracer->call_names = NULL;
-    return EXIT_SUCCESS;
 }

@@ -35,10 +35,11 @@ void tracer_init(tracer_t *tracer, char **argv);
 void tracer_destroy(tracer_t *tracer);
 
 int trace_binary(tracer_t *tracer);
+int process_instruction(tracer_t *tracer);
 
 int step_forward(pid_t child_pid, int *wstatus);
 int get_registers(registers_t *dest, pid_t child_pid);
-bool opcode_match(int opcode1, int opcode2);
+bool opcode_match(uint16_t opcode1, uint16_t opcode2);
 
 int trace_signal(pid_t child_pid);
 

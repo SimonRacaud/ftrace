@@ -7,7 +7,7 @@
 
 #include "app.h"
 
-bool opcode_match(int opcode1, int opcode2)
+bool opcode_match(uint16_t opcode1, uint16_t opcode2)
 {
     if (opcode1 == opcode2) {
         return true;
