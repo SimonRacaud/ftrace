@@ -51,4 +51,7 @@ int ret_instruction_handler(tracer_t *tracer, NOTUSED registers_t *registers);
 // BINARY
 pid_t binary_launcher(char **command);
 
+// HANDLER
+int syscall_instruction_handler(tracer_t *tracer, registers_t *registers);;
+
 #endif // APP_H

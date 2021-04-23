@@ -11,11 +11,11 @@
 const instruction_t INSTR_HANDLERS[] = {
     {
         .opcode = 0x80cd,
-        .handler = NULL//&syscall_instruction_handler
+        .handler = &syscall_instruction_handler
     },
     {
         .opcode = 0x050f,
-        .handler = NULL//&syscall_instruction_handler
+        .handler = &syscall_instruction_handler
     },
     {
         .opcode = 0xc3,
