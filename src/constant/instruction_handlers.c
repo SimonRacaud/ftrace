@@ -19,19 +19,19 @@ const instruction_t INSTR_HANDLERS[] = {
     },
     {
         .opcode = 0xc3,
-        .handler = NULL//&ret_instruction_handler
+        .handler = &ret_instruction_handler
     },
     {
         .opcode = 0xcb,
-        .handler = NULL//&ret_instruction_handler
+        .handler = &ret_instruction_handler
     },
     {
         .opcode = 0xc2,
-        .handler = NULL//&ret_instruction_handler
+        .handler = &ret_instruction_handler
     },
     {
-        .opcode = 0xca,//&ret_instruction_handler
-        .handler = NULL
+        .opcode = 0xca,
+        .handler = &ret_instruction_handler
     },
     {
         .opcode = 0xe8,
@@ -40,10 +40,6 @@ const instruction_t INSTR_HANDLERS[] = {
     {
         .opcode = 0xff,
         .handler = NULL//&ff_instruction_handler
-    },
-    {
-        .opcode = 0x9a,
-        .handler = NULL//&nine_a_instruction_handler
     },
     {
         .opcode = 0x0,

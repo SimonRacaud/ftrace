@@ -19,6 +19,7 @@ SRC	=	src/main.c									\
 		src/tracer/trace_signal.c					\
 		src/tracer/tracer_destroy.c					\
 		src/tracer/tracer_init.c					\
+		src/tracer/handler/ret_instruction_handler.c\
 
 OBJ	=	$(SRC:.c=.o)
 
