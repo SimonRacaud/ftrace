@@ -6,6 +6,7 @@
 */
 
 #include "app.h"
+#include "libc.h"
 
 static int tracer_setup(pid_t child_pid)
 {

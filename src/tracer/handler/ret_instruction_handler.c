@@ -6,6 +6,7 @@
 */
 
 #include "app.h"
+#include "libc.h"
 
 static const char *RETURN_MESSAGE = "Leaving function %s\n";
 

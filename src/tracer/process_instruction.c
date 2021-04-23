@@ -6,6 +6,7 @@
 */
 
 #include "app.h"
+#include "libc.h"
 
 extern const instruction_t INSTR_HANDLERS[];
 
@@ -22,10 +23,12 @@ int process_instruction(tracer_t *tracer)
 {
     registers_t registers;
     uint16_t opcode;
+    long addr;
 
     if (get_registers(&registers, tracer->child_pid) == EXIT_FAILURE)
         return EXIT_FAILURE;
-    opcode = OPCODE(registers.rip);
+    addr = ptrace(PTRACE_PEEKDATA, tracer->child_pid, registers.rip, NULL);
+    opcode = OPCODE(addr);
     for (size_t i = 0; INSTR_HANDLERS[i].opcode != 0; i++) {
         if (opcode_match(opcode, INSTR_HANDLERS[i].opcode)) {
             return call_instruction_handler(

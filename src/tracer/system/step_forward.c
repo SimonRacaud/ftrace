@@ -6,6 +6,7 @@
 */
 
 #include "app.h"
+#include "libc.h"
 
 int step_forward(pid_t child_pid, int *wstatus)
 {
@@ -13,7 +14,7 @@ int step_forward(pid_t child_pid, int *wstatus)
         return EXIT_FAILURE;
     if (wait4(child_pid, wstatus, 0, NULL) == -1)
         return EXIT_FAILURE;
-    if (WIFEXITED(*wstatus) || WIFSIGNALED(*wstatus))
+    if (wstatus && (WIFEXITED(*wstatus) || WIFSIGNALED(*wstatus)))
         return EXIT_QUIT;
     return EXIT_SUCCESS;
 }

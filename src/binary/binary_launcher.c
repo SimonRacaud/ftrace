@@ -6,6 +6,7 @@
 */
 
 #include "app.h"
+#include "libc.h"
 
 pid_t binary_launcher(char **command)
 {

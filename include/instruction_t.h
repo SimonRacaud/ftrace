@@ -8,10 +8,10 @@
 #ifndef INSTRUCTION_T_H
 #define INSTRUCTION_T_H
 
-#include "tracer_t.h"
-#include "libc.h"
+#include <stdint.h>
 
-typedef struct user_regs_struct registers_t;
+#include "tracer_t.h"
+#include "registers_t.h"
 
 typedef int (* intruct_handler)(tracer_t *, registers_t *);
 
