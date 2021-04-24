@@ -8,8 +8,9 @@
 #ifndef SYSCALL_SPECIAL_T_H
 #define SYSCALL_SPECIAL_T_H
 
-typedef int (*special_case_handler)(registers_t *regs, pid_t child_pid,
-    const syscall_t *info, uint line_length);
+#include "syscall_args_t.h"
+
+typedef int (*special_case_handler)(syscall_args_t *args);
 
 typedef struct syscall_special {
     uint64_t instruction;

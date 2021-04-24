@@ -30,8 +30,7 @@ static int print_char_array(
     return size;
 }
 
-int print_string(unsigned long long int reg, pid_t child_pid,
-    __attribute__((unused)) const registers_t *regs)
+int print_string(unsigned long long int reg, pid_t child_pid)
 {
     size_t idx = 0;
     size_t size = 0;

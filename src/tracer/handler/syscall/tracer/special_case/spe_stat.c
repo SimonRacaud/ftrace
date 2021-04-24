@@ -85,9 +85,7 @@ static int print_struct_stat(unsigned long long int reg, pid_t child_pid)
     return size;
 }
 
-int spe_stat(unsigned long long int reg,
-    __attribute__((unused)) pid_t child_pid,
-    __attribute__((unused)) const registers_t *regs)
+int spe_stat(unsigned long long int reg, pid_t child_pid)
 {
     size_t size = 0;
 

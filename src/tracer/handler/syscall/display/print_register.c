@@ -19,22 +19,21 @@ static const print_reg_t INDEX[] = {
 };
 
 static inline int print_default(unsigned long long int reg,
-    __attribute__((unused)) pid_t child_pid,
-    __attribute__((unused)) const registers_t *regs)
+    __attribute__((unused)) pid_t child_pid)
 {
     return fprintf(stderr, "0x%llx", reg);
 }
 
-int print_register(arg_t *val, pid_t child_pid, const registers_t *regs)
+int print_register(arg_t *val, syscall_args_t *args)
 {
-    return print_default(val->value, child_pid, regs);
-    /// Detailled
-    /*
+    if (args->detailled == false) {
+        return print_default(val->value, args->child_pid);
+    } else {
         for (size_t i = 0; INDEX[i].func != NULL; i++) {
             if (INDEX[i].type == val->type) {
-                return INDEX[i].func(val->value, child_pid, regs, args);
+                return INDEX[i].func(val->value, args->child_pid);
             }
         }
-        return print_default(val->value, child_pid, regs, args);
-    */
+        return print_default(val->value, args->child_pid);
+    }
 }

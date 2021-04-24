@@ -11,9 +11,8 @@
 #include <stddef.h>
 #include <sys/stat.h>
 #include <sys/sysmacros.h>
-#include "syscall_t.h"
+#include "syscall_args_t.h"
 
-int spe_stat(unsigned long long int reg, pid_t child_pid,
-    const struct user_regs_struct *regs);
+int spe_stat(unsigned long long int reg, pid_t child_pid);
 
 #endif // STRACE_SPECIAL_CASES_H

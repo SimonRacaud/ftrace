@@ -27,42 +27,39 @@ static int show_red_string(
     return EXIT_SUCCESS;
 }
 
-static int show_syscall_args(const syscall_t *info, uint *line_length,
-    registers_t *regs, pid_t child_pid)
+static int show_syscall_args(syscall_args_t *args)
 {
     static size_t idx = 0;
     uint64_t reg_value;
-    arg_t arg;
+    arg_t param;
 
-    reg_value = register_find(idx, regs);
+    reg_value = register_find(idx, args->regs);
     if (idx != 1) {
-        arg.type = info->args[idx].printer.type;
-        arg.value = reg_value;
-        *line_length += print_register(&arg, child_pid, regs);
+        param.type = args->info->args[idx].printer.type;
+        param.value = reg_value;
+        args->line_length += print_register(&param, args);
     } else {
-        if (show_red_string(child_pid, line_length, reg_value))
+        if (show_red_string(args->child_pid, &args->line_length, reg_value))
             return EXIT_FAILURE;
     }
     if (idx != 2)
-        *line_length += fprintf(stderr, ", ");
+        args->line_length += fprintf(stderr, ", ");
     if (++idx == 3)
         idx = 0;
     return EXIT_SUCCESS;
 }
 
-int spec_handler_read(registers_t *regs, pid_t child_pid,
-    const syscall_t *info, uint line_length)
+int spec_handler_read(syscall_args_t *args)
 {
-    if (show_syscall_args(info, &line_length, regs, child_pid) != EXIT_SUCCESS)
+    if (show_syscall_args(args) != EXIT_SUCCESS)
         return EXIT_FAILURE;
-    if (step_forward(child_pid, NULL) != EXIT_SUCCESS)
+    if (step_forward(args->child_pid, NULL) != EXIT_SUCCESS)
         return EXIT_FAILURE;
     for (size_t i = 0; i < 2; i++) {
-        if (show_syscall_args(info, &line_length, regs, child_pid)
-            != EXIT_SUCCESS)
+        if (show_syscall_args(args) != EXIT_SUCCESS)
             return EXIT_FAILURE;
     }
-    if (syscall_show_return_value(line_length, regs, child_pid, info))
+    if (syscall_show_return_value(args))
         return EXIT_FAILURE;
     return EXIT_SUCCESS;
 }

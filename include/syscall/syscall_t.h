@@ -13,12 +13,9 @@
 #include <sys/types.h>
 #include <sys/user.h>
 
-#include "registers_t.h"
-
 #define STRACE_SYSCALL_ARGS_MAX 6
 
-typedef int (*t_printer)(unsigned long long int, pid_t,
-    const registers_t *);
+typedef int (*t_printer)(unsigned long long int, pid_t);
 
 typedef enum e_type
 {

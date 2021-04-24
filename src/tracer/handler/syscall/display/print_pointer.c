@@ -7,9 +7,8 @@
 
 #include "syscall.h"
 
-int print_pointer(unsigned long long int reg,
-    __attribute__((unused)) pid_t child_pid,
-    __attribute__((unused)) const registers_t *regs)
+int print_pointer(
+    unsigned long long int reg, __attribute__((unused)) pid_t child_pid)
 {
     if (reg == 0) {
         return fprintf(stderr, "NULL");

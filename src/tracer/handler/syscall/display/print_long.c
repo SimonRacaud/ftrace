@@ -7,16 +7,12 @@
 
 #include "syscall.h"
 
-int print_long(unsigned long long int reg,
-    __attribute__((unused)) pid_t child_pid,
-    __attribute__((unused)) const registers_t *regs)
+int print_long(unsigned long long int reg, __attribute__((unused)) pid_t child_pid)
 {
     return fprintf(stderr, "%ld", (long) reg);
 }
 
-int print_ulong(unsigned long long int reg,
-    __attribute__((unused)) pid_t child_pid,
-    __attribute__((unused)) const registers_t *regs)
+int print_ulong(unsigned long long int reg, __attribute__((unused)) pid_t child_pid)
 {
     return fprintf(stderr, "%lu", (unsigned long) reg);
 }
