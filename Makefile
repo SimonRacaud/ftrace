@@ -45,7 +45,7 @@ SRC	=	src/main.c									\
 		src/proc_maps/proc_maps_line.c									\
 		src/proc_maps/proc_maps_parser.c								\
 		src/proc_maps/proc_maps_match.c									\
-		src/utility/my_str_to_word_array.c								\
+		src/utility/str_to_array.c									\
 		src/tracer/handler/rmmod/rmmod_manage.c						\
 		src/tracer/handler/rmmod/ff_instruction_handler.c			\
 		src/tracer/handler/rmmod/four_one_ff_instruction_handler.c	\

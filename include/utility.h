@@ -12,6 +12,6 @@
 #include <stdbool.h>
 #include <string.h>
 
-char **my_str_to_word_array(const char *str, const char *delim);
+char **my_str_to_array(const char *str);
 
 #endif // UTILITY_H

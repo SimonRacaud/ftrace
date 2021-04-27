@@ -10,7 +10,7 @@
 
 proc_maps_line_t *proc_maps_line_create(char *line)
 {
-    char **parsed_line = my_str_to_word_array(line, " \t");
+    char **parsed_line = my_str_to_array(line);
     char *filepath;
     proc_maps_line_t *result = malloc(sizeof(proc_maps_line_t));
     size_t size = 0;
