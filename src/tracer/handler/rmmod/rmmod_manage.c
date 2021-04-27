@@ -12,8 +12,7 @@ extern const char ENTERING_FUNCTION[];
 
 static int get_name(tracer_t *tracer, unsigned long long addr)
 {
-    //char *name = get_func_name(tracer->child_pid, addr);
-    char *name = strdup("NOT ALREADY DEV");
+    char *name = browse_function_name(tracer->child_pid, addr);
 
     if (!name)
         return EXIT_FAILURE;
