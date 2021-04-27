@@ -20,8 +20,7 @@ int e_eight_instruction_handler(tracer_t *tracer, registers_t *registers)
     ptrace(PTRACE_GETREGS, tracer->child_pid, 0, registers->rip);
     if (ptrace(PTRACE_PEEKDATA, tracer->child_pid, registers->rip, NULL) == -1)
         return false;
-    // name = get_func_name(tracer->child_pid, registers->rip);
-    name = strdup("NOT ALREADY DEV");
+    name = browse_function_name(tracer->child_pid, registers->rip);
     if (!name)
         return false;
     fprintf(stderr, ENTERING_FUNCTION, name, registers->rip);
