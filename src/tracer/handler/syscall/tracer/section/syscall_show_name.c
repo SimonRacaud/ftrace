@@ -9,5 +9,5 @@
 
 void print_syscall_name(const syscall_t *info, uint *line_length)
 {
-    *line_length += fprintf(stderr, "%s(", info->name);
+    *line_length += fprintf(stderr, "Syscall %s(", info->name);
 }
