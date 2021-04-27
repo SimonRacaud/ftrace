@@ -12,7 +12,7 @@ bool opcode_match(uint16_t opcode1, uint16_t opcode2)
     if (opcode1 == opcode2) {
         return true;
     } else if (FIRST_BYTE(opcode1) == FIRST_BYTE(opcode2)
-               && SECOND_BYTE(opcode2) == 0) {
+                && SECOND_BYTE(opcode2) == 0) {
         return true;
     }
     return false;

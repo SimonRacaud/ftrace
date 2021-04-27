@@ -7,7 +7,8 @@
 
 #include "syscall.h"
 
-int print_int(unsigned long long int reg, __attribute__((unused)) pid_t child_pid)
+int print_int(unsigned long long int reg,
+__attribute__((unused)) pid_t child_pid)
 {
     return fprintf(stderr, "%lld", reg);
 }
