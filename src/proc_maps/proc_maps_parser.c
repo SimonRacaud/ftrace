@@ -48,7 +48,7 @@ static void find_first_name_match_start(
 
 static void parse_map(proc_maps_match_t *match, FILE *file, uint64_t rip)
 {
-    proc_maps_line_t *list;
+    proc_maps_line_t *list = NULL;
     proc_maps_line_t *ptr;
 
     do {
