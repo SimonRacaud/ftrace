@@ -39,7 +39,11 @@ const instruction_t INSTR_HANDLERS[] = {
     },
     {
         .opcode = 0xff,
-        .handler = NULL//&ff_instruction_handler
+        .handler = &ff_instruction_handler
+    },
+    {
+        .opcode = 0x41ff,
+        .handler = &four_one_ff_instruction_handler
     },
     {
         .opcode = 0x0,
