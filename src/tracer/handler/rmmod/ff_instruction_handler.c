@@ -14,9 +14,10 @@ int ff_instruction_handler(tracer_t *tracer, registers_t *registers)
     long word = 0;
 
     word = ptrace(PTRACE_PEEKTEXT, tracer->child_pid, registers->rip);
-    ptrace(PTRACE_SINGLESTEP, tracer->child_pid, NULL, NULL);
-    wait4(tracer->child_pid, NULL, 0, NULL);
-    ptrace(PTRACE_GETREGS, tracer->child_pid, 0, registers);
+    if (step_forward(tracer->child_pid, NULL) == EXIT_FAILURE)
+        return EXIT_FAILURE;
+    if (get_registers(registers, tracer->child_pid) == EXIT_FAILURE)
+        return EXIT_FAILURE;
     if (word == -1)
         return EXIT_FAILURE;
     field_byte = (word & 0xff00) >> 8;
