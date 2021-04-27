@@ -25,6 +25,7 @@ SRC	=	src/main.c									\
 		src/tracer/tracer_destroy.c					\
 		src/tracer/tracer_init.c					\
 		src/tracer/handler/ret_instruction_handler.c\
+		src/tracer/handler/e_eight_instruction_handler.c\
 		src/tracer/handler/syscall/display/print_int.c		\
 		src/tracer/handler/syscall/display/print_long.c		\
 		src/tracer/handler/syscall/display/print_pointer.c	\

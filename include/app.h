@@ -57,6 +57,7 @@ int execute_rmmode(tracer_t *tracer, registers_t *registers, int field_byte);
 
 // HANDLER
 int ff_instruction_handler(tracer_t *tracer, registers_t *registers);
+int e_eight_instruction_handler(tracer_t *tracer, registers_t *registers);
 int syscall_instruction_handler(tracer_t *tracer, registers_t *registers);
 int four_one_ff_instruction_handler(tracer_t *tracer, registers_t *registers);
 
