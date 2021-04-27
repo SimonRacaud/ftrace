@@ -12,7 +12,6 @@ extern const char ENTERING_FUNCTION[];
 
 int e_eight_instruction_handler(tracer_t *tracer, registers_t *registers)
 {
-    printf("HERE 0xe8??\n");
     char *name = NULL;
     int ret = 0;
 
