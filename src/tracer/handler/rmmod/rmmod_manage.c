@@ -8,7 +8,7 @@
 #include "app.h"
 #include "libc.h"
 
-extern const char *ENTERING_FUNCTION;
+extern const char ENTERING_FUNCTION[];
 
 static int get_name(tracer_t *tracer, unsigned long long addr)
 {

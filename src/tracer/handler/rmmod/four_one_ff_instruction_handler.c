@@ -10,6 +10,7 @@
 
 int four_one_ff_instruction_handler(tracer_t *tracer, registers_t *registers)
 {
+    printf("HERE 0x41ff\n");
     int field_byte = 0;
     long word = 0;
 

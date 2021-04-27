@@ -10,6 +10,7 @@
 
 int ff_instruction_handler(tracer_t *tracer, registers_t *registers)
 {
+    printf("HERE 0xff??\n");
     int field_byte = 0;
     long word = 0;
 
