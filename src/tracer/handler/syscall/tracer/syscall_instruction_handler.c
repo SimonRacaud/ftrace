@@ -31,7 +31,8 @@ static void init_args(
     args->info = get_syscall_info(registers->rax);
     args->regs = registers;
     args->child_pid = tracer->child_pid;
-    args->line_length = false;
+    args->line_length = 0;
+    args->detailled = false;
 }
 
 int syscall_instruction_handler(tracer_t *tracer, registers_t *registers)
