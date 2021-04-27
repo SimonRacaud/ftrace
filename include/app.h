@@ -21,7 +21,7 @@
 
 #define OPCODE(rip)      (0xFFFF & rip)
 #define FIRST_BYTE(var)  (0xFF & var)
-#define SECOND_BYTE(var) (0x00FF & var)
+#define SECOND_BYTE(var) (0xFF00 & var)
 
 #define NOTUSED __attribute__((unused))
 
