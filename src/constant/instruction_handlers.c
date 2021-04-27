@@ -35,7 +35,7 @@ const instruction_t INSTR_HANDLERS[] = {
     },
     {
         .opcode = 0xe8,
-        .handler = NULL//&e_eight_instruction_handler
+        .handler = &e_eight_instruction_handler
     },
     {
         .opcode = 0x00ff,
