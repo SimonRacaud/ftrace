@@ -13,6 +13,7 @@ SRC	=	src/main.c									\
 		src/constant/syscall.c						\
 		src/constant/syscall_special.c				\
 		src/constant/errno.c						\
+		src/constant/display_function.c				\
 		src/stack/sstack.c							\
 		src/tracer/system/get_registers.c			\
 		src/tracer/system/opcode_match.c			\
@@ -40,6 +41,9 @@ SRC	=	src/main.c									\
 		src/tracer/handler/syscall/tracer/utility/get_syscall_info.c			\
 		src/tracer/handler/syscall/tracer/utility/register_find.c				\
 		src/tracer/handler/syscall/tracer/syscall_instruction_handler.c			\
+		src/tracer/handler/rmmod/rmmod_manage.c						\
+		src/tracer/handler/rmmod/ff_instruction_handler.c			\
+		src/tracer/handler/rmmod/four_one_ff_instruction_handler.c	\
 
 OBJ	=	$(SRC:.c=.o)
 

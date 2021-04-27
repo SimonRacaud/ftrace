@@ -25,6 +25,7 @@
 
 #define NOTUSED __attribute__((unused))
 
+#include "rmmod_t.h"
 #include "sstack.h"
 #include "instruction_t.h"
 #include "tracer_t.h"
@@ -51,7 +52,12 @@ int ret_instruction_handler(tracer_t *tracer, NOTUSED registers_t *registers);
 // BINARY
 pid_t binary_launcher(char **command);
 
+// RM/MOD
+int execute_rmmode(tracer_t *tracer, registers_t *registers, int field_byte);
+
 // HANDLER
-int syscall_instruction_handler(tracer_t *tracer, registers_t *registers);;
+int ff_instruction_handler(tracer_t *tracer, registers_t *registers);
+int syscall_instruction_handler(tracer_t *tracer, registers_t *registers);
+int four_one_ff_instruction_handler(tracer_t *tracer, registers_t *registers);
 
 #endif // APP_H
