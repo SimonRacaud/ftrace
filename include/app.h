@@ -8,6 +8,7 @@
 #ifndef APP_H
 #define APP_H
 
+#define _GNU_SOURCE
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,13 +23,17 @@
 #define OPCODE(rip)      (0xFFFF & rip)
 #define FIRST_BYTE(var)  (0xFF & var)
 #define SECOND_BYTE(var) (0xFF00 & var)
+#define RELATIVE_ADDR(addr, elf_start) (addr - elf_start)
+#define IS_EMPTY(str) (str[0] == '\0')
 
 #define NOTUSED __attribute__((unused))
 
 #include "rmmod_t.h"
-#include "sstack.h"
 #include "instruction_t.h"
 #include "tracer_t.h"
+
+#include "elf_management.h"
+#include "sstack.h"
 
 int usage(int status, const char *bin);
 bool show_usages(int argc, char **argv);

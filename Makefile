@@ -49,6 +49,9 @@ SRC	=	src/main.c									\
 		src/tracer/handler/rmmod/rmmod_manage.c						\
 		src/tracer/handler/rmmod/ff_instruction_handler.c			\
 		src/tracer/handler/rmmod/four_one_ff_instruction_handler.c	\
+		src/elf/browse_function_name.c								\
+		src/elf/elf_parser_get_symbol_name.c						\
+		src/elf/unknown_symbol_name_formatter.c						\
 
 OBJ	=	$(SRC:.c=.o)
 
