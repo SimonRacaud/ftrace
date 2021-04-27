@@ -37,10 +37,10 @@ static char *elf_parser_find_name(
 char *elf_parser_get_symbol_name(char *elf_filepath, uint64_t addr)
 {
     int fd = open(elf_filepath, O_RDONLY);
-    Elf *elf;
-    Elf_Scn *section;
-    GElf_Shdr section_header;
-    char *function_name;
+    Elf *elf = NULL;
+    Elf_Scn *section = NULL;
+    GElf_Shdr section_header = {0};
+    char *function_name = NULL;
 
     if (fd == -1)
         return NULL;

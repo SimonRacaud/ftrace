@@ -10,7 +10,6 @@
 
 int four_one_ff_instruction_handler(tracer_t *tracer, registers_t *registers)
 {
-    printf("here 2\n");
     int field_byte = 0;
     long word = 0;
 
