@@ -18,9 +18,11 @@ char *browse_function_name(pid_t child_pid, uint64_t rip)
         return NULL;
     if (IS_EMPTY(match->interval_match_filepath) == false) {
         local_addr = rip - match->name_match_start;
-        func_name = elf_parser_get_symbol_name(match->interval_match_filepath, local_addr);
+        func_name =
+        elf_parser_get_symbol_name(match->interval_match_filepath, local_addr);
         if (!func_name) {
-            func_name = elf_parser_get_symbol_name(match->interval_match_filepath, rip);
+            func_name =
+            elf_parser_get_symbol_name(match->interval_match_filepath, rip);
         }
     }
     func_name = unknown_symbol_name_formatter(match, func_name, rip);
