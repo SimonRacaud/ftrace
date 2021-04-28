@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <gelf.h>
 
 #ifdef EXIT_FAILURE
     #undef EXIT_FAILURE
@@ -59,6 +60,10 @@ pid_t binary_launcher(char **command);
 
 // RM/MOD
 int execute_rmmode(tracer_t *tracer, registers_t *registers, int field_byte);
+
+// DYNAMIC SYM
+char *get_dynamic_name(Elf *elf,
+size_t sh_link_dyntab, Elf_Data *data_dynsim, uint64_t addr);
 
 // HANDLER
 int ff_instruction_handler(tracer_t *tracer, registers_t *registers);
