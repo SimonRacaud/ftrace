@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 
     if (show_usages(argc, argv)) {
         return usage(EXIT_SUCCESS, argv[0]);
-    } else if (argc != ARGC_NEEDED) {
+    } else if (argc < ARGC_NEEDED) {
         return usage(EXIT_FAILURE, argv[0]);
     }
     tracer_init(&tracer, argv);
