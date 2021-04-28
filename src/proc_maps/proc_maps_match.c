@@ -24,4 +24,3 @@ void proc_maps_match_destroy(proc_maps_match_t *ptr)
         free(ptr->interval_match_filepath);
     free(ptr);
 }
-
