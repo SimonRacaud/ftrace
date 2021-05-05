@@ -43,15 +43,15 @@ size_t sh_link_dyntab, Elf_Data *data_dynsim, uint64_t addr)
 {
     char *name = NULL;
     Elf_Scn *section = NULL;
-    GElf_Shdr section_header = {0};
+    GElf_Shdr sec_hdr = {0};
     GElf_Rela rela = {0};
     GElf_Sym sym = {0};
     Elf_Data *data_rela = NULL;
     size_t rela_size = 0;
 
-    move_to_rela_plt(elf, &section, &section_header);
+    move_to_rela_plt(elf, &section, &sec_hdr);
     data_rela = elf_getdata(section, NULL);
-    rela_size = section_header.sh_size / section_header.sh_entsize;
+    rela_size = (sec_hdr.sh_entsize) ? sec_hdr.sh_size / sec_hdr.sh_entsize : 0;
     for (size_t i = 0; i < rela_size; i++) {
         gelf_getrela(data_rela, i, &rela);
         gelf_getsym(data_dynsim, GELF_R_SYM(rela.r_info), &sym);

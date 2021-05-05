@@ -33,7 +33,9 @@ static size_t get_nb_plt_sym(Elf *elf)
         strcmp(".rela.plt", elf_strptr(elf, tmp, section_header.sh_name)) == 0)
             break;
     }
-    return section_header.sh_size / section_header.sh_entsize;
+    if (section_header.sh_entsize)
+        return section_header.sh_size / section_header.sh_entsize;
+    return 0;
 }
 
 static char *elf_parser_find_name(
